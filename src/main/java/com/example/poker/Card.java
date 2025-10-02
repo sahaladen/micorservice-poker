@@ -3,8 +3,8 @@ package com.example.poker;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
-@Getter
+//todo: lombok doesnt work. find out at a later time why.
+
 public class Card {
     private Suit cardType;
     private Rank cardNumber;
@@ -20,5 +20,14 @@ public class Card {
                 cardType +
                 ", " + cardNumber +
                 '}';
+    }
+
+
+    public Suit getCardType() {
+        return cardType;
+    }
+
+    public Rank getCardNumber() {
+        return cardNumber;
     }
 }

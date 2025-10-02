@@ -8,6 +8,7 @@ public class CardDeck {
     private final List<Card> combinedCards = new ArrayList<>();
     private final List<Card> discardPile = new ArrayList<>();
     private final List<Card> playerPulledCard = new ArrayList<>();
+    //todo: endre array til å representere bordet.
     private final List<Card> dealerPulledCard = new ArrayList<>();
 
     public void combine(){
@@ -61,6 +62,16 @@ public class CardDeck {
             System.out.println("no cards to show");
         }else{
             for(Card card : playerPulledCard){
+                System.out.println(card);
+            }
+        }
+    }
+
+    public void showDealerHand(){
+        if(dealerPulledCard.isEmpty()){
+            System.out.println("no cards to show");
+        }else{
+            for(Card card : dealerPulledCard){
                 System.out.println(card);
             }
         }

@@ -10,10 +10,22 @@ public class HandEvaluator {
         this.cardDeck = cardDeck;
     }
 
+    public void check(){
+        List<Card> playerHand = cardDeck.getPlayerPulledCards();
+        System.out.println(playerHand);
+        getCombinedHands();
+
+
+    }
+
     private List<Card> getCombinedHands(){
         List<Card> combine = new ArrayList<>();
         combine.addAll(cardDeck.getPlayerPulledCards());
         combine.addAll(cardDeck.getDealerPulledCard());
+
+        for (Card card : combine){
+            System.out.println("alle kortene: " + card);
+        }
         return combine;
     }
     private boolean checkStraight(List<Card> cards) {
