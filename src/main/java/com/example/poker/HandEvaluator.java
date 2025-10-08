@@ -11,20 +11,48 @@ public class HandEvaluator {
     }
 
     public void check(){
-        List<Card> playerHand = cardDeck.getPlayerPulledCards();
-        System.out.println(playerHand);
-        getCombinedHands();
+        if (royalFlush()) {
+            System.out.println("You have a Royal Flush");
+        } else if (straightFlush()) {
+            System.out.println("You have a Straight Flush");
+        } else if (fourOfAKind()) {
+            System.out.println("You have Four of a Kind");
+        } else if (fullHouse()) {
+            System.out.println("You have a Full House");
+        } else if (flush()) {
+            System.out.println("You have a Flush");
+        } else if (straight()) {
+            System.out.println("You have a Straight");
+        } else if (threeOfAKind()) {
+            System.out.println("You have Three of a Kind");
+        } else if (twoPair()) {
+            System.out.println("You have Two Pair");
+        } else if (onePair()) {
+            System.out.println("You have One Pair");
+        } else {
+            System.out.println("High Card: " + highCard());
+        }
 
 
     }
 
-    private List<Card> getCombinedHands(){
+    private List<Card> getCombinedHandsPlayer(){
         List<Card> combine = new ArrayList<>();
         combine.addAll(cardDeck.getPlayerPulledCards());
-        combine.addAll(cardDeck.getDealerPulledCard());
+        combine.addAll(cardDeck.getCardsOnTable());
 
         for (Card card : combine){
-            System.out.println("alle kortene: " + card);
+            System.out.println(card);
+        }
+        return combine;
+    }
+    private List<Card> getCombinedHandsDealer(){
+        List<Card> combine = new ArrayList<>();
+        combine.addAll(cardDeck.getDealerPulledCard());
+        combine.addAll(cardDeck.getCardsOnTable());
+
+        for (Card card : combine){
+            System.out.println(card);
         }
         return combine;
     }
@@ -63,7 +91,7 @@ public class HandEvaluator {
 
 
     private Map<Suit, Integer> countSuits(){
-        List<Card> combine = getCombinedHands();
+        List<Card> combine = getCombinedHandsPlayer();
         Map<Suit, Integer> suitCount = new HashMap<>();
 
         for(Card card : combine){
@@ -77,7 +105,7 @@ public class HandEvaluator {
         return suitCount;
     }
     private Map<Rank, Integer> countRanks() {
-        List<Card> combine = getCombinedHands();
+        List<Card> combine = getCombinedHandsPlayer();
         Map<Rank, Integer> rankCount = new HashMap<>();
 
         for (Card card : combine) {
@@ -87,7 +115,7 @@ public class HandEvaluator {
         return rankCount;
     }
     public Card highCard(){
-        List<Card> combine = getCombinedHands();
+        List<Card> combine = getCombinedHandsPlayer();
         if(combine.isEmpty()){
             return null;
         }else {
@@ -130,7 +158,7 @@ public class HandEvaluator {
 
 
     public boolean straight() {
-        List<Card> combine = getCombinedHands();
+        List<Card> combine = getCombinedHandsPlayer();
         Set<Integer> uniqueRanks = new HashSet<>();
 
         for (Card card : combine) {
@@ -203,7 +231,7 @@ public class HandEvaluator {
 
 
     public boolean straightFlush() {
-        List<Card> combined = getCombinedHands();
+        List<Card> combined = getCombinedHandsPlayer();
 
         Map<Suit, List<Card>> cardsBySuit = new HashMap<>();
         for (Card card : combined) {
@@ -222,7 +250,7 @@ public class HandEvaluator {
 
 
     public boolean royalFlush() {
-        List<Card> combine = getCombinedHands();
+        List<Card> combine = getCombinedHandsPlayer();
         Map<Suit, List<Card>> cardsBySuit = new HashMap<>();
 
         for(Card card: combine){

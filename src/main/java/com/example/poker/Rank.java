@@ -3,7 +3,6 @@ package com.example.poker;
 public enum Rank {
     //todo: fiks the slik at den bruker lombok
     NONE(0),
-    ACE(11),
     TWO(2),
     THREE(3),
     FOUR(4),
@@ -13,9 +12,11 @@ public enum Rank {
     EIGHT(8),
     NINE(9),
     TEN(10),
-    JACK(10),
-    QUEEN(10),
-    KING(10);
+    JACK(11),
+    QUEEN(12),
+    KING(13),
+    ACE(14);
+
 
     private final int value;
 

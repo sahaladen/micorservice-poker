@@ -10,6 +10,7 @@ public class CardDeck {
     private final List<Card> playerPulledCard = new ArrayList<>();
     //todo: endre array til å representere bordet.
     private final List<Card> dealerPulledCard = new ArrayList<>();
+    private final List<Card> cardsOnTable = new ArrayList<>();
 
     public void combine(){
         for (Rank rank : Rank.values()) {
@@ -32,10 +33,21 @@ public class CardDeck {
         }else {
             Card topCard = combinedCards.remove(0);
             playerPulledCard.add(topCard);
-            System.out.println("Pulled: " + topCard);
+            System.out.println("player Pulled: " + topCard);
 
         }
 
+    }
+
+    public void dealerDraw(){
+        if(combinedCards.isEmpty()){
+            System.out.println("no more cards to pull");
+        }else {
+            Card topCard = combinedCards.remove(0);
+            dealerPulledCard.add(topCard);
+            System.out.println("dealer Pulled: " + topCard);
+
+        }
     }
 
     public void dealerDrawOnTable(){
@@ -43,21 +55,31 @@ public class CardDeck {
             System.out.println("no more cards to pull");
         }else {
             Card topCard = combinedCards.remove(0);
-            dealerPulledCard.add(topCard);
-            System.out.println("Pulled: " + topCard);
+            cardsOnTable.add(topCard);
+            System.out.println("dealer Pulled card to table: " + topCard);
 
         }
     }
-    public void discardHeldHands(){
+    public void discardPlayerHeldHands(){
         if(playerPulledCard.isEmpty()){
             System.out.println("no more cards to discard");
         }else {
             Card heldCard = playerPulledCard.remove(0);
             discardPile.add(heldCard);
-            System.out.println("discarded " + heldCard);
+            System.out.println("discarded player hand: " + heldCard);
         }
     }
-    public void showHeldCard(){
+
+    public void discardDealerHeldHands(){
+        if(playerPulledCard.isEmpty()){
+            System.out.println("no more cards to discard");
+        }else {
+            Card heldCard = dealerPulledCard.remove(0);
+            discardPile.add(heldCard);
+            System.out.println("discarded dealer hand: " + heldCard);
+        }
+    }
+    public void showPlayerHeldCard(){
         if(playerPulledCard.isEmpty()){
             System.out.println("no cards to show");
         }else{
@@ -76,6 +98,15 @@ public class CardDeck {
             }
         }
     }
+    public void showCardsOnTable(){
+        if(cardsOnTable.isEmpty()){
+            System.out.println("no cards to show");
+        }else{
+            for(Card card : cardsOnTable){
+                System.out.println(card);
+            }
+        }
+    }
 
 
     public List<Card> getCombinedCards(){
@@ -87,5 +118,9 @@ public class CardDeck {
     }
     public List<Card> getDealerPulledCard(){
         return dealerPulledCard;
+    }
+
+    public List<Card> getCardsOnTable() {
+        return cardsOnTable;
     }
 }

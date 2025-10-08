@@ -4,43 +4,97 @@ import java.util.Scanner;
 
 public class Program {
     //todo: se hvor jeg vil håndtere kortene som er på bordet.
-    CardDeck cardDeck = new CardDeck();
+    private CardDeck cardDeck = new CardDeck();
+    private BetManager betManager = new BetManager(0,0);
+    private HandEvaluator handEvaluator = new HandEvaluator(cardDeck);
+
+
+
 
     public void Run(){
         cardDeck.combine();
         cardDeck.shuffleCards();
+        dealOutCards();
         meny();
-        start();
     }
 
     private void meny() {
-        System.out.println("welcome to poker. place a bet: ");
+        //todo: legg til slik at hvis de ikke vil bette så kan de gå ut av spille.
+        System.out.println("welcome to poker. how much money do you want to start betting with? : ");
         Scanner scanner = new Scanner(System.in);
-        int input = scanner.nextInt();
+        int balance = scanner.nextInt();
+        betManager.setBalancePlayer(balance);
+        boolean folded = false;
+        int dealerBet = 0;
+
+
+
         //todo: da du lager databasen. husk at penga skal være i dollar
-        System.out.println("bet placed: " + input + "$");
+        System.out.println("place a bet: ");
+        int bet = scanner.nextInt();
+        betManager.setTotalBetPlacedPlayer(bet);
+        betManager.setBalancePlayer(balance - bet);
+
         //todo: legg til en måte å få betta på.
-        //todo: kan ha egen klasse for det men vi ser ann.
+
+
+        for(int i = 0; i < 3; i++){
+            cardDeck.dealerDrawOnTable();
+        }
+
+
+        for(int i = 0; i < 2; i++){
+            cardDeck.showPlayerHeldCard();
+            dealerBet += 50;
+            System.out.println("dealer placed 50$");
+            System.out.println("raise, call or fold");
+            String choice = scanner.next().toLowerCase();
+            switch(choice){
+                case "raise":
+                    //todo: endre på navnet til input2
+                    int input2 = scanner.nextInt();
+                    betManager.setTotalBetPlacedPlayer(input2);
+                    //matcher player hver gang
+                    dealerBet += input2;
+                    break;
+                case "call":
+                    //todo: finn en måte å se hvor mye penger som er på bordet eller
+                    //todo: gjør slik at spillern spiller mot dealer.
+                    System.out.println("matched the bet");
+                    break;
+                case "fold":
+                    System.out.println("you folded");
+                    betManager.setMoneyLostPlayer(betManager.getTotalBetPlacedPlayer());
+                    betManager.setTotalBetPlacedPlayer(0);
+                    folded = true;
+                    break;
+                default:
+                    System.out.println("input a valid value");
+            }
+            if (folded == true){
+                break;
+            }
+            cardDeck.dealerDrawOnTable();
+            cardDeck.showCardsOnTable();
+        }
+        betManager.setTotalBetPlacedDealer(dealerBet);
+        handEvaluator.check();
+
+
+
     }
 
-    private void start(){
+    private void dealOutCards(){
         /*
         for loopen funker som den skal. har ingen ting med index å gjøre.
         det er basert på selve kort stokken.
          */
-        HandEvaluator handEvaluator = new HandEvaluator(cardDeck);
-        for(int i = 0; i < 5; i++){
-            cardDeck.dealerDrawOnTable();
-        }
-        cardDeck.showDealerHand();
-
         for(int i = 0; i < 2; i++){
             cardDeck.playerDraw();
         }
-        cardDeck.showHeldCard();
-
-        System.out.println("handle class: ");
-        handEvaluator.check();
+        for(int i = 0; i < 2; i++){
+            cardDeck.dealerDraw();
+        }
 
     }
 }
