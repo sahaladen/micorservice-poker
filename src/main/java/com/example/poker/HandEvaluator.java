@@ -41,9 +41,6 @@ public class HandEvaluator {
         combine.addAll(cardDeck.getPlayerPulledCards());
         combine.addAll(cardDeck.getCardsOnTable());
 
-        for (Card card : combine){
-            System.out.println(card);
-        }
         return combine;
     }
     private List<Card> getCombinedHandsDealer(){
@@ -51,15 +48,13 @@ public class HandEvaluator {
         combine.addAll(cardDeck.getDealerPulledCard());
         combine.addAll(cardDeck.getCardsOnTable());
 
-        for (Card card : combine){
-            System.out.println(card);
-        }
         return combine;
     }
     private boolean checkStraight(List<Card> cards) {
+        //todo: sjekk om metoden funker som den skal. gpt sier noe annet.
         Set<Integer> values = new HashSet<>();
         for (Card card : cards) {
-            values.add(card.getCardNumber().getValue());
+            values.add(card.getCardRank().getValue());
         }
 
         List<Integer> sorted = new ArrayList<>(values);
@@ -80,7 +75,7 @@ public class HandEvaluator {
     private boolean containsRoyalStraight(List<Card> cards) {
         Set<Integer> values = new HashSet<>();
         for (Card card : cards) {
-            values.add(card.getCardNumber().getValue());
+            values.add(card.getCardRank().getValue());
         }
         // Royal flush is 10, J, Q, K, A
         return values.contains(10) && values.contains(11) &&
@@ -95,7 +90,7 @@ public class HandEvaluator {
         Map<Suit, Integer> suitCount = new HashMap<>();
 
         for(Card card : combine){
-            Suit suit = card.getCardType();
+            Suit suit = card.getCardSuit();
             if(suitCount.containsKey(suit)){
                 suitCount.put(suit, suitCount.get(suit) + 1);
             }else{
@@ -109,7 +104,7 @@ public class HandEvaluator {
         Map<Rank, Integer> rankCount = new HashMap<>();
 
         for (Card card : combine) {
-            Rank rank = card.getCardNumber();
+            Rank rank = card.getCardRank();
             rankCount.put(rank, rankCount.getOrDefault(rank, 0) + 1);
         }
         return rankCount;
@@ -121,7 +116,7 @@ public class HandEvaluator {
         }else {
             Card highest = combine.get(0);
             for (Card card : combine){
-                if (card.getCardNumber().getValue() > highest.getCardNumber().getValue()){
+                if (card.getCardRank().getValue() > highest.getCardRank().getValue()){
                     highest = card;
                 }
             }
@@ -162,7 +157,7 @@ public class HandEvaluator {
         Set<Integer> uniqueRanks = new HashSet<>();
 
         for (Card card : combine) {
-            uniqueRanks.add(card.getCardNumber().getValue());
+            uniqueRanks.add(card.getCardRank().getValue());
         }
 
         List<Integer> sortedRanks = new ArrayList<>(uniqueRanks);
@@ -180,7 +175,7 @@ public class HandEvaluator {
 
         if (uniqueRanks.contains(14)) {
             List<Integer> aceLow = new ArrayList<>(uniqueRanks);
-            aceLow.remove(14);
+            aceLow.remove(Integer.valueOf(14));
             aceLow.add(1); // Ace counts as 1
             Collections.sort(aceLow);
 
@@ -211,15 +206,17 @@ public class HandEvaluator {
 
     public boolean fullHouse() {
         Map<Rank, Integer> rankCount = countRanks();
-        boolean hasThree = false;
-        boolean hasTwo = false;
+        int threeCount = 0;
+        int twoCount = 0;
 
         for (int count : rankCount.values()) {
-            if (count >= 3) hasThree = true;
-            else if (count >= 2) hasTwo = true;
+            if (count >= 3) threeCount++;
+            else if (count >= 2) twoCount++;
         }
-        return hasThree && hasTwo;
+
+        return threeCount >= 1 && (twoCount >= 1 || threeCount >= 2);
     }
+
 
     public boolean fourOfAKind() {
         Map<Rank, Integer> rankCount = countRanks();
@@ -235,7 +232,7 @@ public class HandEvaluator {
 
         Map<Suit, List<Card>> cardsBySuit = new HashMap<>();
         for (Card card : combined) {
-            Suit suit = card.getCardType();
+            Suit suit = card.getCardSuit();
             cardsBySuit.putIfAbsent(suit, new ArrayList<>());
             cardsBySuit.get(suit).add(card);
         }
@@ -254,7 +251,7 @@ public class HandEvaluator {
         Map<Suit, List<Card>> cardsBySuit = new HashMap<>();
 
         for(Card card: combine){
-            Suit suit = card.getCardType();
+            Suit suit = card.getCardSuit();
             cardsBySuit.putIfAbsent(suit, new ArrayList<>());
             cardsBySuit.get(suit).add(card);
         }

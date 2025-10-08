@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Program {
     //todo: se hvor jeg vil håndtere kortene som er på bordet.
+    //todo: bruk long istedet for int fordi jeg vil bruke store summer
     private CardDeck cardDeck = new CardDeck();
     private BetManager betManager = new BetManager(0,0);
     private HandEvaluator handEvaluator = new HandEvaluator(cardDeck);
@@ -42,9 +43,9 @@ public class Program {
             cardDeck.dealerDrawOnTable();
         }
 
+        cardDeck.showPlayerHeldCard();
 
         for(int i = 0; i < 2; i++){
-            cardDeck.showPlayerHeldCard();
             dealerBet += 50;
             System.out.println("dealer placed 50$");
             System.out.println("raise, call or fold");
@@ -52,6 +53,7 @@ public class Program {
             switch(choice){
                 case "raise":
                     //todo: endre på navnet til input2
+                    System.out.println("how much?: ");
                     int input2 = scanner.nextInt();
                     betManager.setTotalBetPlacedPlayer(input2);
                     //matcher player hver gang
@@ -75,9 +77,15 @@ public class Program {
                 break;
             }
             cardDeck.dealerDrawOnTable();
+            System.out.println("on the table: ");
             cardDeck.showCardsOnTable();
         }
         betManager.setTotalBetPlacedDealer(dealerBet);
+        System.out.println("\nall cards on the table: ");
+        cardDeck.showCardsOnTable();
+        System.out.println();
+        System.out.println("your hand: ");
+        cardDeck.showPlayerHeldCard();
         handEvaluator.check();
 
 

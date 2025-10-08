@@ -1,33 +1,30 @@
 package com.example.poker;
 
-import lombok.Getter;
-import lombok.Setter;
-
 //todo: lombok doesnt work. find out at a later time why.
 
 public class Card {
-    private Suit cardType;
-    private Rank cardNumber;
+    private Suit cardSuit;
+    private Rank cardRank;
 
     public Card(Suit cardType, Rank cardNumber) {
-        this.cardType = cardType;
-        this.cardNumber = cardNumber;
+        this.cardSuit = cardType;
+        this.cardRank = cardNumber;
     }
 
     @Override
     public String toString() {
         return "Card{" +
-                cardType +
-                ", " + cardNumber +
+                cardSuit +
+                ", " + cardRank +
                 '}';
     }
 
 
-    public Suit getCardType() {
-        return cardType;
+    public Suit getCardSuit() {
+        return cardSuit;
     }
 
-    public Rank getCardNumber() {
-        return cardNumber;
+    public Rank getCardRank() {
+        return cardRank;
     }
 }
