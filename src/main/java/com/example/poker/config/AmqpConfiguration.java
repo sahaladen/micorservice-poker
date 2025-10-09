@@ -15,4 +15,6 @@ public class AmqpConfiguration {
                 .durable(true)
                 .build();
     }
+
+
 }

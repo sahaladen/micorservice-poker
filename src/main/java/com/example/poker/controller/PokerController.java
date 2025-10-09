@@ -3,6 +3,7 @@ package com.example.poker.controller;
 import com.example.poker.Card;
 import com.example.poker.service.CardDeckService;
 import com.example.poker.service.CardDeckServiceImp;
+import com.example.poker.service.EventSender;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +20,13 @@ import java.util.List;
 public class PokerController {
 
     private final CardDeckServiceImp cardDeckService;
+    private final EventSender eventSender;
 
     @GetMapping()
     public List<Card> getAllCards(){
+        log.info("pre-sending");
+        eventSender.publishTest();
+        log.info("post-sending");
         return cardDeckService.getCombinedCards();
     }
 }
