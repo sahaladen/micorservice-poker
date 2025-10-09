@@ -2,12 +2,12 @@ package com.example.poker;
 
 public class BetManager {
     //todo: legg til slik at balance er 2 styk. en for dealer og player
-    private int totalBetPlacedPlayer;
-    private int totalBetPlacedDealer;
-    private int balancePlayer;
-    private int balanceDealer = 999999999;
-    private int moneyLostPlayer;
-    private int moneyLostDealer;
+    private long totalBetPlacedPlayer;
+    private long totalBetPlacedDealer;
+    private long balancePlayer;
+    private long balanceDealer = 999999999;
+    private long moneyLostPlayer;
+    private long moneyLostDealer;
 
     public BetManager(int totalBetPlacedPlayer, int totalBetPlacedDealer) {
         this.totalBetPlacedPlayer = totalBetPlacedPlayer;
@@ -15,59 +15,60 @@ public class BetManager {
 
     }
 
-    private int totalPot(int totalBetPlacedDealer, int totalBetPlacedPlayer){
-        int total = totalBetPlacedDealer + totalBetPlacedPlayer;
+    public long totalPot(long totalBetPlacedDealer, long totalBetPlacedPlayer){
+        long total = totalBetPlacedDealer + totalBetPlacedPlayer;
         return total;
     }
     public void winner(){
 
     }
 
-    public int getTotalBetPlacedPlayer() {
+
+    public long getTotalBetPlacedPlayer() {
         return totalBetPlacedPlayer;
     }
 
-    public void setTotalBetPlacedPlayer(int totalBetPlacedPlayer) {
+    public void setTotalBetPlacedPlayer(long totalBetPlacedPlayer) {
         this.totalBetPlacedPlayer = totalBetPlacedPlayer;
     }
 
-    public int getBalancePlayer() {
-        return balancePlayer;
-    }
-
-    public void setBalancePlayer(int balancePlayer) {
-        this.balancePlayer = balancePlayer;
-    }
-
-    public int getMoneyLostPlayer() {
-        return moneyLostPlayer;
-    }
-
-    public void setMoneyLostPlayer(int moneyLostPlayer) {
-        this.moneyLostPlayer = moneyLostPlayer;
-    }
-
-    public int getTotalBetPlacedDealer() {
+    public long getTotalBetPlacedDealer() {
         return totalBetPlacedDealer;
     }
 
-    public void setTotalBetPlacedDealer(int totalBetPlacedDealer) {
+    public void setTotalBetPlacedDealer(long totalBetPlacedDealer) {
         this.totalBetPlacedDealer = totalBetPlacedDealer;
     }
 
-    public int getMoneyLostDealer() {
-        return moneyLostDealer;
+    public long getBalancePlayer() {
+        return balancePlayer;
     }
 
-    public void setMoneyLostDealer(int moneyLostDealer) {
-        this.moneyLostDealer = moneyLostDealer;
+    public void setBalancePlayer(long balancePlayer) {
+        this.balancePlayer = balancePlayer;
     }
 
-    public int getBalanceDealer() {
+    public long getBalanceDealer() {
         return balanceDealer;
     }
 
-    public void setBalanceDealer(int balanceDealer) {
+    public void setBalanceDealer(long balanceDealer) {
         this.balanceDealer = balanceDealer;
+    }
+
+    public long getMoneyLostPlayer() {
+        return moneyLostPlayer;
+    }
+
+    public void setMoneyLostPlayer(long moneyLostPlayer) {
+        this.moneyLostPlayer = moneyLostPlayer;
+    }
+
+    public long getMoneyLostDealer() {
+        return moneyLostDealer;
+    }
+
+    public void setMoneyLostDealer(long moneyLostDealer) {
+        this.moneyLostDealer = moneyLostDealer;
     }
 }

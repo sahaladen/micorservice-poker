@@ -3,7 +3,7 @@ package com.example.poker;
 import java.util.Scanner;
 
 public class Program {
-    //todo: se hvor jeg vil håndtere kortene som er på bordet.
+
     //todo: bruk long istedet for int fordi jeg vil bruke store summer
     private CardDeck cardDeck = new CardDeck();
     private BetManager betManager = new BetManager(0,0);
@@ -23,20 +23,20 @@ public class Program {
         //todo: legg til slik at hvis de ikke vil bette så kan de gå ut av spille.
         System.out.println("welcome to poker. how much money do you want to start betting with? : ");
         Scanner scanner = new Scanner(System.in);
-        int balance = scanner.nextInt();
+        long balance = scanner.nextInt();
         betManager.setBalancePlayer(balance);
         boolean folded = false;
-        int dealerBet = 0;
+        long dealerBet = 0;
 
 
 
         //todo: da du lager databasen. husk at penga skal være i dollar
         System.out.println("place a bet: ");
-        int bet = scanner.nextInt();
+        long bet = scanner.nextInt();
         betManager.setTotalBetPlacedPlayer(bet);
         betManager.setBalancePlayer(balance - bet);
 
-        //todo: legg til en måte å få betta på.
+
 
 
         for(int i = 0; i < 3; i++){
@@ -47,27 +47,38 @@ public class Program {
 
         for(int i = 0; i < 2; i++){
             dealerBet += 50;
+            betManager.setTotalBetPlacedDealer(dealerBet);
+
             System.out.println("dealer placed 50$");
-            System.out.println("raise, call or fold");
+            System.out.println("raise, call or fold\n");
             String choice = scanner.next().toLowerCase();
             switch(choice){
                 case "raise":
                     //todo: endre på navnet til input2
-                    System.out.println("how much?: ");
-                    int input2 = scanner.nextInt();
+                    System.out.println("\nhow much?: ");
+                    long input2 = scanner.nextInt();
                     betManager.setTotalBetPlacedPlayer(input2);
-                    //matcher player hver gang
-                    dealerBet += input2;
+                    System.out.println("\ndealer matched the bet\n");
+                    betManager.setTotalBetPlacedDealer(dealerBet += input2);
                     break;
                 case "call":
                     //todo: finn en måte å se hvor mye penger som er på bordet eller
                     //todo: gjør slik at spillern spiller mot dealer.
                     System.out.println("matched the bet");
+                    betManager.setTotalBetPlacedPlayer(dealerBet);
                     break;
                 case "fold":
                     System.out.println("you folded");
-                    betManager.setMoneyLostPlayer(betManager.getTotalBetPlacedPlayer());
+                    betManager.setMoneyLostPlayer
+                            (betManager.getBalancePlayer() - betManager.getTotalBetPlacedPlayer());
+                    betManager.totalPot
+                            (betManager.getTotalBetPlacedDealer(),betManager.getTotalBetPlacedPlayer());
+                    betManager.setBalanceDealer(betManager.totalPot
+                            (betManager.getTotalBetPlacedDealer(),betManager.getTotalBetPlacedPlayer()));
+                    //todo: legg til senere slik at hvor mye penger en spiller har er i et annet sted.
+                    betManager.setBalancePlayer(0);
                     betManager.setTotalBetPlacedPlayer(0);
+                    betManager.setTotalBetPlacedDealer(0);
                     folded = true;
                     break;
                 default:
@@ -80,12 +91,16 @@ public class Program {
             System.out.println("on the table: ");
             cardDeck.showCardsOnTable();
         }
-        betManager.setTotalBetPlacedDealer(dealerBet);
         System.out.println("\nall cards on the table: ");
         cardDeck.showCardsOnTable();
         System.out.println();
         System.out.println("your hand: ");
         cardDeck.showPlayerHeldCard();
+        System.out.println("\n total amount in the pot in dollars: ");
+        System.out.println
+                (betManager.totalPot
+                (betManager.getTotalBetPlacedDealer(),betManager.getTotalBetPlacedPlayer())
+        );
         handEvaluator.check();
 
 
