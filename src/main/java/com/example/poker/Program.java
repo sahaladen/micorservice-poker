@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class Program {
 
-    //todo: bruk long istedet for int fordi jeg vil bruke store summer
     private CardDeck cardDeck = new CardDeck();
     private BetManager betManager = new BetManager(0,0);
     private HandEvaluator handEvaluator = new HandEvaluator(cardDeck);
@@ -62,8 +61,7 @@ public class Program {
                     betManager.setTotalBetPlacedDealer(dealerBet += input2);
                     break;
                 case "call":
-                    //todo: finn en måte å se hvor mye penger som er på bordet eller
-                    //todo: gjør slik at spillern spiller mot dealer.
+
                     System.out.println("matched the bet");
                     betManager.setTotalBetPlacedPlayer(dealerBet);
                     break;
