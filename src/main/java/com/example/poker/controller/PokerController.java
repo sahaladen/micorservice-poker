@@ -17,10 +17,14 @@ import java.util.List;
 //@RequiredArgsConstructor
 @RequestMapping("/microservice/poker")
 public class PokerController {
-
+    //todo: funker på nettsiden men ikke på terminal
+    //todo: så enten lag en branch med source kode for å fikse spille
+    //todo: eller bare tukle med master branch
     public PokerController(CardDeckService cardDeckService) {
         this.cardDeckService = cardDeckService;
     }
+
+
 
     private final CardDeckService cardDeckService;
 
