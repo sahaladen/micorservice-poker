@@ -14,11 +14,15 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @RequestMapping("/microservice/poker")
 public class PokerController {
 
-    private final CardDeckServiceImp cardDeckService;
+    public PokerController(CardDeckService cardDeckService) {
+        this.cardDeckService = cardDeckService;
+    }
+
+    private final CardDeckService cardDeckService;
 
     @GetMapping()
     public List<Card> getAllCards(){
