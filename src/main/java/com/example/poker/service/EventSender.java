@@ -1,5 +1,6 @@
 package com.example.poker.service;
 
+import com.example.poker.BetManager;
 import com.example.poker.Card;
 import com.example.poker.Rank;
 import com.example.poker.Suit;
@@ -22,18 +23,29 @@ public class EventSender {
     }
 
     public void publishTest(){
-        String routingKey = "showcards.complete";
+        String routingKey = "playerbalance.complete";
 
         log.info("sending info of all cards... to {}", exchangeName);
         amqpTemplate.convertAndSend(exchangeName,routingKey,"it works");
     }
     public void publishCardTest(){
-        String routingKey = "showcards.complete";
+        String routingKey = "playerbalance.complete";
 
         log.info("sending info of all cards... to {}", exchangeName);
         //create Card object
         Card card = new Card(Suit.SPADES, Rank.ACE);
         amqpTemplate.convertAndSend(exchangeName,routingKey,card);
+    }
+    public void publishPlayerBalance(){
+        String routingKey = "playerbalance.complete";
+
+        log.info("sending balance over... to {}", exchangeName);
+
+        BetManager betManager = new BetManager(9999,9999);
+
+        long playerBalance = betManager.getBalancePlayer();
+
+        amqpTemplate.convertAndSend(exchangeName,routingKey,playerBalance);
     }
     public void showAllCards(){
 
