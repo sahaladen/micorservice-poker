@@ -82,6 +82,12 @@ public class CardDeck {
             System.out.println("discarded dealer hand: " + heldCard);
         }
     }
+
+    public void discardCardsOnTable(){
+        for(Card card: cardsOnTable){
+            discardPile.add(card);
+        }
+    }
     public List<Card> showPlayerHeldCard(){
         if(playerPulledCard.isEmpty()){
             System.out.println("no cards to show");
@@ -112,6 +118,17 @@ public class CardDeck {
             }
         }
         return cardsOnTable;
+    }
+
+    public List<Card> showDiscardPile(){
+        if(discardPile.isEmpty()){
+            System.out.println("no cards to show");
+        }else{
+            for(Card card : discardPile){
+                System.out.println(card);
+            }
+        }
+        return discardPile;
     }
 
 

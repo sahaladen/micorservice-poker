@@ -13,4 +13,5 @@ public interface CardDeckService {
     List<Card> dealerDraw();
     List<Card> showCardsOnTable();
     List<Card> drawCardsOnTable();
+    List<Card> discardAllCards();
 }

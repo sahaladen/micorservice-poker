@@ -53,4 +53,12 @@ public class CardDeckServiceImp implements CardDeckService{
     public List<Card> drawCardsOnTable() {
         return cardDeck.drawCardsOnTable();
     }
+    @Override
+    public List<Card> discardAllCards(){
+        cardDeck.discardDealerHeldHands();
+        cardDeck.discardPlayerHeldHands();
+        cardDeck.discardCardsOnTable();
+
+        return cardDeck.showDiscardPile();
+    }
 }
