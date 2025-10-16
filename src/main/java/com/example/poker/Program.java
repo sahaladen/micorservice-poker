@@ -39,7 +39,7 @@ public class Program {
 
 
         for(int i = 0; i < 3; i++){
-            cardDeck.dealerDrawOnTable();
+            cardDeck.drawCardsOnTable();
         }
 
         cardDeck.showPlayerHeldCard();
@@ -85,7 +85,7 @@ public class Program {
             if (folded == true){
                 break;
             }
-            cardDeck.dealerDrawOnTable();
+            cardDeck.drawCardsOnTable();
             System.out.println("on the table: ");
             cardDeck.showCardsOnTable();
         }

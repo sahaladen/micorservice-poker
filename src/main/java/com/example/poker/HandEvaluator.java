@@ -5,6 +5,7 @@ import java.util.*;
 public class HandEvaluator {
 
     private  final CardDeck cardDeck;
+    private String winner;
 
     public HandEvaluator(CardDeck cardDeck) {
         this.cardDeck = cardDeck;
@@ -20,18 +21,23 @@ public class HandEvaluator {
 
         if (playerRank > dealerRank) {
             System.out.println("You win with " + handName(playerRank));
+            setWinner("player");
         } else if (dealerRank > playerRank) {
             System.out.println("Dealer wins with " + handName(dealerRank));
+            setWinner("dealer");
         } else {
             Card playerHigh = highCard(playerHand);
             Card dealerHigh = highCard(dealerHand);
 
             if (playerHigh.getCardRank().getValue() > dealerHigh.getCardRank().getValue()) {
                 System.out.println("Both have " + handName(playerRank) + ", but you win with higher card: " + playerHigh);
+                setWinner("player");
             } else if (dealerHigh.getCardRank().getValue() > playerHigh.getCardRank().getValue()) {
                 System.out.println("Both have " + handName(playerRank) + ", but dealer wins with higher card: " + dealerHigh);
+                setWinner("dealer");
             } else {
                 System.out.println("It's a tie!");
+                setWinner("tie");
             }
         }
     }
@@ -290,6 +296,13 @@ public class HandEvaluator {
     }
 
 
+    public String getWinner() {
+        return winner;
+    }
+
+    public void setWinner(String winner) {
+        this.winner = winner;
+    }
 }
 
 
