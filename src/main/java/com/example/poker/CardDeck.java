@@ -27,7 +27,7 @@ public class CardDeck {
         System.out.println("deck shuffled");
     }
 
-    public void playerDraw(){
+    public List<Card> playerDraw(){
         if(combinedCards.isEmpty()){
             System.out.println("no more cards to pull");
         }else {
@@ -36,10 +36,11 @@ public class CardDeck {
             System.out.println("player Pulled: " + topCard);
 
         }
+        return playerPulledCard;
 
     }
 
-    public void dealerDraw(){
+    public List<Card> dealerDraw(){
         if(combinedCards.isEmpty()){
             System.out.println("no more cards to pull");
         }else {
@@ -48,9 +49,10 @@ public class CardDeck {
             System.out.println("dealer Pulled: " + topCard);
 
         }
+        return dealerPulledCard;
     }
 
-    public void dealerDrawOnTable(){
+    public List<Card> drawCardsOnTable(){
         if(combinedCards.isEmpty()){
             System.out.println("no more cards to pull");
         }else {
@@ -59,6 +61,7 @@ public class CardDeck {
             System.out.println("dealer Pulled card to table: " + topCard);
 
         }
+        return cardsOnTable;
     }
     public void discardPlayerHeldHands(){
         if(playerPulledCard.isEmpty()){
@@ -79,7 +82,7 @@ public class CardDeck {
             System.out.println("discarded dealer hand: " + heldCard);
         }
     }
-    public void showPlayerHeldCard(){
+    public List<Card> showPlayerHeldCard(){
         if(playerPulledCard.isEmpty()){
             System.out.println("no cards to show");
         }else{
@@ -87,9 +90,10 @@ public class CardDeck {
                 System.out.println(card);
             }
         }
+        return playerPulledCard;
     }
 
-    public void showDealerHand(){
+    public List<Card> showDealerHand(){
         if(dealerPulledCard.isEmpty()){
             System.out.println("no cards to show");
         }else{
@@ -97,8 +101,9 @@ public class CardDeck {
                 System.out.println(card);
             }
         }
+        return dealerPulledCard;
     }
-    public void showCardsOnTable(){
+    public List<Card> showCardsOnTable(){
         if(cardsOnTable.isEmpty()){
             System.out.println("no cards to show");
         }else{
@@ -106,6 +111,7 @@ public class CardDeck {
                 System.out.println(card);
             }
         }
+        return cardsOnTable;
     }
 
 
