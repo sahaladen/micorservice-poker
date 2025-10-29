@@ -1,18 +1,26 @@
 package com.example.poker;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 import java.util.*;
 
+@RequiredArgsConstructor
+@Service
 public class HandEvaluator {
 
     private  final CardDeck cardDeck;
     private String winner;
-
+/*
     public HandEvaluator(CardDeck cardDeck) {
         this.cardDeck = cardDeck;
     }
 
+ */
+
 
     public void check(){
+        //legg til at den returner winner
         List<Card> playerHand = getCombinedHandsPlayer();
         List<Card> dealerHand = getCombinedHandsDealer();
 

@@ -1,9 +1,12 @@
 package com.example.poker;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+@Service
 public class CardDeck {
     private final List<Card> combinedCards = new ArrayList<>();
     private final List<Card> discardPile = new ArrayList<>();
@@ -13,6 +16,8 @@ public class CardDeck {
     private final List<Card> cardsOnTable = new ArrayList<>();
 
     public void combine(){
+        combinedCards.clear();
+        discardPile.clear();
         for (Rank rank : Rank.values()) {
             if (rank != Rank.NONE) { // skip NONE if you have it
                 for (Suit suit : Suit.values()) {
@@ -21,6 +26,7 @@ public class CardDeck {
             }
         }
     }
+
 
     public void shuffleCards(){
         Collections.shuffle(combinedCards);
@@ -71,22 +77,27 @@ public class CardDeck {
             discardPile.add(heldCard);
             System.out.println("discarded player hand: " + heldCard);
         }
+        playerPulledCard.clear();
     }
 
     public void discardDealerHeldHands(){
-        if(playerPulledCard.isEmpty()){
+        if(dealerPulledCard.isEmpty()){
             System.out.println("no more cards to discard");
         }else {
             Card heldCard = dealerPulledCard.remove(0);
             discardPile.add(heldCard);
             System.out.println("discarded dealer hand: " + heldCard);
         }
+        dealerPulledCard.clear();
     }
 
     public void discardCardsOnTable(){
+        showCardsOnTable();
         for(Card card: cardsOnTable){
             discardPile.add(card);
+            System.out.println("discarded cards on table: " + card);
         }
+        cardsOnTable.clear();
     }
     public List<Card> showPlayerHeldCard(){
         if(playerPulledCard.isEmpty()){

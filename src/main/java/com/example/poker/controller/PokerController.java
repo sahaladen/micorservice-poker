@@ -1,6 +1,7 @@
 package com.example.poker.controller;
 
 import com.example.poker.Card;
+import com.example.poker.CardDeck;
 import com.example.poker.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import java.util.List;
 @RequestMapping("/microservice/poker")
 public class PokerController {
 
+    private final CardDeck cardDeck;
     private final CardDeckServiceImp cardDeckService;
     private final EventSender eventSender;
     private final HandEvaluatorImp handEvaluator;
@@ -45,8 +47,8 @@ public class PokerController {
         return cardDeckService.drawCardsOnTable();
     }
     @GetMapping("/discard-all-cards")
-    public List<Card> discardAllCards(){
-        return cardDeckService.discardAllCards();
+    public void discardAllCards(){
+        cardDeckService.discardAllCards();
     }
 
 
@@ -66,6 +68,11 @@ public class PokerController {
     }
 
 
+    @GetMapping("/get-winner")
+    public String getWinner() {
+        return handEvaluator.getWinner();
+
+    }
 
 
 
@@ -78,8 +85,8 @@ public class PokerController {
         eventSender.publishPlayerBalance();
 
         log.info("setting test winner...");
-        handEvaluator.setWinner("player");
-        String winner = handEvaluator.getWinner();
+
+        String winner = "playertest";
         log.info("winner: " + winner);
         eventSender.publishCardTest();
 

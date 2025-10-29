@@ -11,7 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CardDeckServiceImp implements CardDeckService{
 
-    private final CardDeck cardDeck = new CardDeck();
+    private final CardDeck cardDeck;
 
     @Override
     public List<Card> combineCards() {
@@ -54,11 +54,11 @@ public class CardDeckServiceImp implements CardDeckService{
         return cardDeck.drawCardsOnTable();
     }
     @Override
-    public List<Card> discardAllCards(){
+    public void discardAllCards(){
         cardDeck.discardDealerHeldHands();
         cardDeck.discardPlayerHeldHands();
         cardDeck.discardCardsOnTable();
 
-        return cardDeck.showDiscardPile();
+
     }
 }
