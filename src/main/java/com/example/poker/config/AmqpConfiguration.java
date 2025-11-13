@@ -24,14 +24,14 @@ public class AmqpConfiguration {
     }
     @Bean
     public Queue pokerQueue() {
-        return new Queue("showcards.complete", true, false, false); // durable queue
+        return new Queue("playerbalance.complete", true, false, false); // durable queue
     }
 
     @Bean
     public Binding binding(Queue pokerQueue, TopicExchange topicExchange) {
         return BindingBuilder.bind(pokerQueue)
                 .to(topicExchange)
-                .with("showcards.complete"); // routing key
+                .with("playerbalance.complete"); // routing key
     }
 
     @Bean

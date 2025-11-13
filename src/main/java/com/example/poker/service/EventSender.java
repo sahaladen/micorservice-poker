@@ -28,14 +28,7 @@ public class EventSender {
         log.info("sending info of all cards... to {}", exchangeName);
         amqpTemplate.convertAndSend(exchangeName,routingKey,"it works");
     }
-    public void publishCardTest(){
-        String routingKey = "playerbalance.complete";
 
-        log.info("sending info of all cards... to {}", exchangeName);
-        //create Card object
-        Card card = new Card(Suit.SPADES, Rank.ACE);
-        amqpTemplate.convertAndSend(exchangeName,routingKey,card);
-    }
     public void publishPlayerBalance(){
         String routingKey = "playerbalance.complete";
 
@@ -43,11 +36,10 @@ public class EventSender {
 
         BetManager betManager = new BetManager(9999,9999);
 
-        long playerBalance = betManager.getBalancePlayer();
+        long playerBalance =42;
 
+        log.info("playerbalance {}: ", playerBalance);
         amqpTemplate.convertAndSend(exchangeName,routingKey,playerBalance);
     }
-    public void showAllCards(){
 
-    }
 }
