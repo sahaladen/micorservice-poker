@@ -50,6 +50,30 @@ public class PokerController {
 
 
 
+    @GetMapping("/player-hand")
+    public List<Card> playerHand(){
+        return cardDeckService.showPlayerHands();
+    }
+
+    @GetMapping("/dealer-hand")
+    public List<Card> dealerHand(){
+        return cardDeckService.showDealerHands();
+    }
+    @GetMapping("/show-cards-on-table")
+    public List<Card> showCardsOnTable(){
+        return cardDeckService.showCardsOnTable();
+    }
+
+
+    @GetMapping("/get-winner")
+    public String getWinner() {
+        return handEvaluator.getWinner();
+
+    }
+
+
+
+
 
 
     @GetMapping("/test-all")
