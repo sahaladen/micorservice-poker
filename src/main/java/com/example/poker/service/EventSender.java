@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 public class EventSender {
     private final String exchangeName;
     private final AmqpTemplate amqpTemplate;
-    private String queueName;
 
     public EventSender
             (@Value("${amqp.exchange.name}") final String exchangeName, AmqpTemplate amqpTemplate)
